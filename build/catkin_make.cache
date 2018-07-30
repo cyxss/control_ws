@@ -1,0 +1,2 @@
+keyboard_control:path_planning
+-DCATKIN_DEVEL_PREFIX=/home/chen/control_ws/devel -DCMAKE_INSTALL_PREFIX=/home/chen/control_ws/install -G Unix Makefiles
