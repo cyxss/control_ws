@@ -20,8 +20,8 @@
    (reverse
     :reader reverse
     :initarg :reverse
-    :type cl:float
-    :initform 0.0))
+    :type cl:boolean
+    :initform cl:nil))
 )
 
 (cl:defclass velocity (<velocity>)
@@ -58,11 +58,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-single-float-bits (cl:slot-value msg 'reverse))))
-    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
-    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream))
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'reverse) 1 0)) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <velocity>) istream)
   "Deserializes a message object of type '<velocity>"
@@ -78,12 +74,7 @@
       (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'v_y) (roslisp-utils:decode-single-float-bits bits)))
-    (cl:let ((bits 0))
-      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
-      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'reverse) (roslisp-utils:decode-single-float-bits bits)))
+    (cl:setf (cl:slot-value msg 'reverse) (cl:not (cl:zerop (cl:read-byte istream))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<velocity>)))
@@ -94,21 +85,21 @@
   "path_planning/velocity")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<velocity>)))
   "Returns md5sum for a message object of type '<velocity>"
-  "3eda26dffef5b0c902c73badc518ee3d")
+  "06185deaaeca232469e4f80f9ff51b48")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'velocity)))
   "Returns md5sum for a message object of type 'velocity"
-  "3eda26dffef5b0c902c73badc518ee3d")
+  "06185deaaeca232469e4f80f9ff51b48")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<velocity>)))
   "Returns full string definition for message of type '<velocity>"
-  (cl:format cl:nil "float32 v_x~%float32 v_y~%float32 reverse~%~%~%~%"))
+  (cl:format cl:nil "float32 v_x~%float32 v_y~%bool reverse~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'velocity)))
   "Returns full string definition for message of type 'velocity"
-  (cl:format cl:nil "float32 v_x~%float32 v_y~%float32 reverse~%~%~%~%"))
+  (cl:format cl:nil "float32 v_x~%float32 v_y~%bool reverse~%~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <velocity>))
   (cl:+ 0
      4
      4
-     4
+     1
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <velocity>))
   "Converts a ROS message object to a list"

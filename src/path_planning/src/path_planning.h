@@ -18,8 +18,7 @@ private:
 		float delta_y;
 		float threshold=0.3;
 		int head,left,right;
-		//bool reverse=false;
-		float reverse=0;
+		bool reverse=false;
 public:
 		path_plan(ros::NodeHandle & n){
 			delta_x = (rand()%100)/1000.0+0.1;

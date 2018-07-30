@@ -7,16 +7,16 @@ import struct
 
 
 class velocity(genpy.Message):
-  _md5sum = "3eda26dffef5b0c902c73badc518ee3d"
+  _md5sum = "06185deaaeca232469e4f80f9ff51b48"
   _type = "path_planning/velocity"
   _has_header = False #flag to mark the presence of a Header object
   _full_text = """float32 v_x
 float32 v_y
-float32 reverse
+bool reverse
 
 """
   __slots__ = ['v_x','v_y','reverse']
-  _slot_types = ['float32','float32','float32']
+  _slot_types = ['float32','float32','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -40,11 +40,11 @@ float32 reverse
       if self.v_y is None:
         self.v_y = 0.
       if self.reverse is None:
-        self.reverse = 0.
+        self.reverse = False
     else:
       self.v_x = 0.
       self.v_y = 0.
-      self.reverse = 0.
+      self.reverse = False
 
   def _get_types(self):
     """
@@ -59,7 +59,7 @@ float32 reverse
     """
     try:
       _x = self
-      buff.write(_get_struct_3f().pack(_x.v_x, _x.v_y, _x.reverse))
+      buff.write(_get_struct_2fB().pack(_x.v_x, _x.v_y, _x.reverse))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -72,8 +72,9 @@ float32 reverse
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.v_x, _x.v_y, _x.reverse,) = _get_struct_3f().unpack(str[start:end])
+      end += 9
+      (_x.v_x, _x.v_y, _x.reverse,) = _get_struct_2fB().unpack(str[start:end])
+      self.reverse = bool(self.reverse)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -87,7 +88,7 @@ float32 reverse
     """
     try:
       _x = self
-      buff.write(_get_struct_3f().pack(_x.v_x, _x.v_y, _x.reverse))
+      buff.write(_get_struct_2fB().pack(_x.v_x, _x.v_y, _x.reverse))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -101,8 +102,9 @@ float32 reverse
       end = 0
       _x = self
       start = end
-      end += 12
-      (_x.v_x, _x.v_y, _x.reverse,) = _get_struct_3f().unpack(str[start:end])
+      end += 9
+      (_x.v_x, _x.v_y, _x.reverse,) = _get_struct_2fB().unpack(str[start:end])
+      self.reverse = bool(self.reverse)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -111,9 +113,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_3f = None
-def _get_struct_3f():
-    global _struct_3f
-    if _struct_3f is None:
-        _struct_3f = struct.Struct("<3f")
-    return _struct_3f
+_struct_2fB = None
+def _get_struct_2fB():
+    global _struct_2fB
+    if _struct_2fB is None:
+        _struct_2fB = struct.Struct("<2fB")
+    return _struct_2fB

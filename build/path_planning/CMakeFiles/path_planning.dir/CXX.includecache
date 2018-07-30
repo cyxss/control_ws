@@ -6,22 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/chen/control_ws/devel/include/path_planning/velocity.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-
 /home/chen/control_ws/src/path_planning/src/main.cpp
 path_planning.h
 /home/chen/control_ws/src/path_planning/src/path_planning.h

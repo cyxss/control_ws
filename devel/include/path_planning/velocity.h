@@ -26,12 +26,12 @@ struct velocity_
   velocity_()
     : v_x(0.0)
     , v_y(0.0)
-    , reverse(0.0)  {
+    , reverse(false)  {
     }
   velocity_(const ContainerAllocator& _alloc)
     : v_x(0.0)
     , v_y(0.0)
-    , reverse(0.0)  {
+    , reverse(false)  {
   (void)_alloc;
     }
 
@@ -43,7 +43,7 @@ struct velocity_
    typedef float _v_y_type;
   _v_y_type v_y;
 
-   typedef float _reverse_type;
+   typedef uint8_t _reverse_type;
   _reverse_type reverse;
 
 
@@ -124,12 +124,12 @@ struct MD5Sum< ::path_planning::velocity_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "3eda26dffef5b0c902c73badc518ee3d";
+    return "06185deaaeca232469e4f80f9ff51b48";
   }
 
   static const char* value(const ::path_planning::velocity_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x3eda26dffef5b0c9ULL;
-  static const uint64_t static_value2 = 0x02c73badc518ee3dULL;
+  static const uint64_t static_value1 = 0x06185deaaeca2324ULL;
+  static const uint64_t static_value2 = 0x69e4f80f9ff51b48ULL;
 };
 
 template<class ContainerAllocator>
@@ -150,7 +150,7 @@ struct Definition< ::path_planning::velocity_<ContainerAllocator> >
   {
     return "float32 v_x\n\
 float32 v_y\n\
-float32 reverse\n\
+bool reverse\n\
 \n\
 ";
   }
@@ -196,7 +196,7 @@ struct Printer< ::path_planning::velocity_<ContainerAllocator> >
     s << indent << "v_y: ";
     Printer<float>::stream(s, indent + "  ", v.v_y);
     s << indent << "reverse: ";
-    Printer<float>::stream(s, indent + "  ", v.reverse);
+    Printer<uint8_t>::stream(s, indent + "  ", v.reverse);
   }
 };
 

@@ -39,7 +39,7 @@ class velocity {
         this.reverse = initObj.reverse
       }
       else {
-        this.reverse = 0.0;
+        this.reverse = false;
       }
     }
   }
@@ -51,7 +51,7 @@ class velocity {
     // Serialize message field [v_y]
     bufferOffset = _serializer.float32(obj.v_y, buffer, bufferOffset);
     // Serialize message field [reverse]
-    bufferOffset = _serializer.float32(obj.reverse, buffer, bufferOffset);
+    bufferOffset = _serializer.bool(obj.reverse, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -64,12 +64,12 @@ class velocity {
     // Deserialize message field [v_y]
     data.v_y = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [reverse]
-    data.reverse = _deserializer.float32(buffer, bufferOffset);
+    data.reverse = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 12;
+    return 9;
   }
 
   static datatype() {
@@ -79,7 +79,7 @@ class velocity {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '3eda26dffef5b0c902c73badc518ee3d';
+    return '06185deaaeca232469e4f80f9ff51b48';
   }
 
   static messageDefinition() {
@@ -87,7 +87,7 @@ class velocity {
     return `
     float32 v_x
     float32 v_y
-    float32 reverse
+    bool reverse
     
     
     `;
@@ -117,7 +117,7 @@ class velocity {
       resolved.reverse = msg.reverse;
     }
     else {
-      resolved.reverse = 0.0
+      resolved.reverse = false
     }
 
     return resolved;
